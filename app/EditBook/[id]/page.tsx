@@ -1,10 +1,11 @@
 "use client";
 import { deleteBook, fetchById, updateBookById } from "@/lib/actions";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import styles from "./EditBook.module.css";
 import Header from "@/app/components/Header";
+import { AuthContext } from "@/app/context/AuthContext";
 // import { Toaster } from "react-hot-toast";
 
 type BookData = {
@@ -18,6 +19,10 @@ type BookData = {
   date: Date;
 };
 const EditBook: React.FC = () => {
+  const user = useContext(AuthContext);
+  useEffect(() => {
+    if (!user) router.push("/");
+  }, []);
   const { id } = useParams();
   const [book, setBook] = useState<BookData | null>(null);
   function fetchBook(id: string) {
@@ -76,6 +81,12 @@ const EditBook: React.FC = () => {
         <h1>MAKE YOUR EDITS THROUGH THIS FORM</h1>
         <form action={updateBook} className={styles.editForm}>
           <div className={styles.editFormRow}>
+            <input type="hidden" value={book?.id} name="id"></input>
+            <input
+              type="hidden"
+              value={user?.email as string}
+              name="email"
+            ></input>
             <input
               type="text"
               placeholder="Book's name"
