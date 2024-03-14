@@ -1,0 +1,92 @@
+.editBookTsx {
+  width: 100%;
+}
+
+.editBookContent {
+  background-color: #3f3f3f;
+  height: 100vh;
+}
+
+.editBookContent h1 {
+  margin: 0;
+  text-align: center;
+  color: white;
+  padding-top: 100px;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.editForm input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: larger;
+}
+
+.editForm input:focus {
+  outline: none;
+}
+
+.editFormRow {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.editForm .editFormRow:nth-child(1) input {
+  width: 100%;
+}
+
+.editFormRow input {
+  width: 45%;
+}
+
+.buttons {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons button {
+  width: 28%;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: larger;
+  border: none;
+  margin-top: 10px;
+}
+
+.buttons button:nth-child(1) {
+  background-color: orange;
+}
+
+.buttons button:nth-child(2) {
+  background-color: rgb(26, 142, 209);
+}
+
+.buttons button:nth-child(1):hover {
+  background-color: #ff4500;
+}
+
+.buttons button:nth-child(2):hover {
+  background-color: #0530ad;
+}
+
+.buttons button:nth-child(3) {
+  background-color: #e52b50;
+}
+
+.buttons button:nth-child(3):hover {
+  background-color: #f40009;
+}

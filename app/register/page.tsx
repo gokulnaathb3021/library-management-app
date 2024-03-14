@@ -1,9 +1,9 @@
 "use client";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import { useContext, useRef, useState } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import { redirect } from "next/navigation";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import { ImPointDown } from "react-icons/im";
 import { FirebaseError } from "firebase/app";
@@ -16,19 +16,19 @@ export default function Home() {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const [errorText, setErrorText] = useState<string>("");
-  const [loggingIn, setLoggingIn] = useState<boolean>(false);
+  const [registering, setRegistering] = useState<boolean>(false);
 
-  async function handleLogin() {
+  async function handleRegister() {
     setErrorText("");
-    setLoggingIn(true);
+    setRegistering(true);
     const email = emailRef.current!.value;
     const password = passwordRef.current!.value;
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setLoggingIn(false);
+      await createUserWithEmailAndPassword(auth, email, password);
+      setRegistering(false);
     } catch (error) {
-      setLoggingIn(false);
+      setRegistering(false);
       if (error instanceof FirebaseError) setErrorText(error.message);
     }
   }
@@ -39,7 +39,7 @@ export default function Home() {
         <h3>Manage all the books at your library with great ease!</h3>
         <div className={styles.loginForm}>
           <p className={styles.loginFormHeading}>
-            Login to your library
+            Register your library with us
             <ImPointDown />
           </p>
           <div className={styles.inputsAndButton}>
@@ -49,12 +49,12 @@ export default function Home() {
               type="password"
               ref={passwordRef}
             ></input>
-            <button onClick={handleLogin}>Login</button>
-            {errorText && <p>{errorText}</p>}
-            {loggingIn && <p>Logging you in...</p>}
+            <button onClick={handleRegister}>Register</button>
+            {errorText != "" && <p>{errorText}</p>}
+            {registering && <p>Registering your library...</p>}
           </div>
           <p>
-            New user? <a href="/register">Register</a>
+            Already having an account? <a href="/">Login</a>
           </p>
         </div>
       </div>

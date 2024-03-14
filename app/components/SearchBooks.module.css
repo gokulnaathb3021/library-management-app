@@ -1,0 +1,18 @@
+.inputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.inputContainer input {
+  width: 100%;
+  padding: 8px 20px;
+  font-size: large;
+  border-radius: 5px;
+  border: none;
+}
+
+.inputContainer input:focus {
+  outline: none;
+}

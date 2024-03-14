@@ -1,0 +1,34 @@
+.books {
+  background-color: #3f3f3f;
+  height: 100vh;
+}
+
+.booksTsx {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.booksTsxContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addBookButton {
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 20px;
+  font-size: large;
+  background: transparent;
+  background-color: rgb(26, 142, 209);
+  border: none;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.addBookButton:hover {
+  background-color: #0530ad;
+  color: white;
+}
