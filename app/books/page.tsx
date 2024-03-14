@@ -10,7 +10,7 @@ import Pagination from "../components/Pagination";
 import BooksList from "../components/BooksList";
 import toast from "react-hot-toast";
 import styles from "./books.module.css";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 
 type BookData = {
   id: string;
@@ -96,7 +96,7 @@ const Books: React.FC<BooksProps> = ({ searchParams }) => {
           <Pagination count={count} />
         </div>
       </div>
-      <Toaster />
+      {/* <Toaster /> */}
     </div>
   );
 };

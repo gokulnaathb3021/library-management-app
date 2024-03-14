@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import styles from "./EditBook.module.css";
 import Header from "@/app/components/Header";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 
 type BookData = {
   id: string;
@@ -133,7 +133,7 @@ const EditBook: React.FC = () => {
           </div>
         </form>
       </div>
-      <Toaster />
+      {/* <Toaster /> */}
     </div>
   );
 };

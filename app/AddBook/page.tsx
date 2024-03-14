@@ -7,7 +7,7 @@ import { addBook } from "@/lib/actions";
 import toast from "react-hot-toast";
 import Header from "../components/Header";
 import styles from "./AddBook.module.css";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 
 const AddBook: React.FC = () => {
   const router = useRouter();
@@ -95,7 +95,7 @@ const AddBook: React.FC = () => {
           </div>
         </form>
       </div>
-      <Toaster />
+      {/* <Toaster /> */}
     </div>
   );
 };
