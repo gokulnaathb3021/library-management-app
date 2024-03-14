@@ -113,7 +113,7 @@ export async function fetchById(id: string) {
 export async function updateBookById(formData: FormData, id: string) {
   try {
     await connect();
-    const { id, email, name, author, genre, isbn, quantity } =
+    const { email, name, author, genre, isbn, quantity } =
       Object.fromEntries(formData);
     const nameString = name?.toString() ?? "";
     validityCheck(nameString, "name");
@@ -124,13 +124,12 @@ export async function updateBookById(formData: FormData, id: string) {
     const isbnString = isbn?.toString() ?? "";
     validityCheck(isbnString, "isbn");
     const emailString = email?.toString() ?? "";
-    const idString = id?.toString() ?? "";
     const bookExists = await prisma.book.findFirst({
       where: {
         isbn: isbnString,
         email: emailString,
         id: {
-          not: idString,
+          not: id,
         },
       },
     });

@@ -81,7 +81,6 @@ const EditBook: React.FC = () => {
         <h1>MAKE YOUR EDITS THROUGH THIS FORM</h1>
         <form action={updateBook} className={styles.editForm}>
           <div className={styles.editFormRow}>
-            <input type="hidden" value={book?.id} name="id"></input>
             <input
               type="hidden"
               value={user?.email as string}
