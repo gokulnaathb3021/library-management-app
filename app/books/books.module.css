@@ -72,7 +72,7 @@
   font-size: 12px;
 }
 
-@media screen and (max-width: 510px) and (max-height: 500px) {
+@media screen and (max-width: 510px) {
   .quote {
     margin-top: 10px;
     margin-bottom: 10px;

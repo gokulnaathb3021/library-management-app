@@ -91,7 +91,7 @@
   background-color: #f40009;
 }
 
-@media screen and (max-width: 510px) and (max-height: 500px) {
+@media screen and (max-width: 510px) {
   .editBookContent h1 {
     padding-top: 80px;
     font-size: 20px;
