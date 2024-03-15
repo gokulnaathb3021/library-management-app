@@ -14,7 +14,7 @@ const AddBook: React.FC = () => {
   const user = useContext(AuthContext);
   useEffect(() => {
     if (!user) router.push("/");
-  }, []);
+  }, [user]);
 
   function add(formData: FormData) {
     toast.loading("Adding book🚀", { id: "0" });

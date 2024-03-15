@@ -22,7 +22,7 @@ const EditBook: React.FC = () => {
   const user = useContext(AuthContext);
   useEffect(() => {
     if (!user) router.push("/");
-  }, []);
+  }, [user]);
   const { id } = useParams();
   const [book, setBook] = useState<BookData | null>(null);
   function fetchBook(id: string) {

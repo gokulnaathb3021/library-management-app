@@ -122,14 +122,22 @@ const Books: React.FC<BooksProps> = ({ searchParams }) => {
       </div>
       <div className={styles.booksTsx}>
         <div className={styles.booksTsxContent}>
-          <button className={styles.addBookButton}>
+          {/* <button className={styles.addBookButton}>
             <Link
               href="/AddBook"
               style={{ textDecoration: "none", color: "white" }}
             >
               CLICK TO ADD A NEW BOOK
             </Link>
-          </button>
+          </button> */}
+          <Link
+            href="/AddBook"
+            style={{ textDecoration: "none", color: "white", width: "100%" }}
+          >
+            <button className={styles.addBookButton}>
+              CLICK TO ADD A NEW BOOK
+            </button>
+          </Link>
           <SearchBooks countWithoutq={countWithoutq} />
           {books.length !== 0 && <BooksList books={books} />}
           <Pagination count={count} />
