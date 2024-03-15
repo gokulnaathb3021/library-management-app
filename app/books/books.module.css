@@ -25,11 +25,12 @@
   border: none;
   margin-bottom: 10px;
   border-radius: 5px;
+  color: white;
 }
 
 .addBookButton:hover {
   background-color: #0530ad;
-  color: white;
+  /* color: white; */
 }
 
 .quote {
