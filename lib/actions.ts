@@ -3,38 +3,27 @@
 import prisma from "@/prisma";
 import { connect } from "@/util/db";
 
-function validityCheck(s: string, field: string) {
-  if (s.trim() === "") throw new Error(`${field} is empty! It can't be so!`);
-  if (field === "isbn" && s.length !== 13)
-    throw new Error(
-      "Invalid ISBN number! ISBN number should be 13 digits long!"
-    );
+export async function thisAlreadyExists(isbn: string, email: string) {
+  const bookExists = await prisma.book.findFirst({
+    where: {
+      isbn,
+      email,
+    },
+  });
+  if (bookExists) return true;
+  else return false;
 }
 
-export async function addBook(formData: FormData) {
+export async function addBook(
+  emailString: string,
+  nameString: string,
+  authorString: string,
+  genreString: string,
+  isbnString: string,
+  quantityInt: number
+) {
   try {
     await connect();
-    const { email, name, author, genre, isbn, quantity } =
-      Object.fromEntries(formData);
-    var isbnString = isbn?.toString() ?? "";
-    validityCheck(isbnString, "isbn");
-    const bookExists = await prisma.book.findFirst({
-      where: {
-        isbn: isbnString,
-      },
-    });
-    if (bookExists) throw new Error("Book with this ISBN already exists!");
-    const emailString = email?.toString() ?? "";
-    validityCheck(emailString, "email");
-    const nameString = name?.toString() ?? "";
-    validityCheck(nameString, "name");
-    const authorString = author?.toString() ?? "";
-    validityCheck(authorString, "author");
-    const genreString = genre?.toString() ?? "";
-    validityCheck(genreString, "genre");
-    const quantityString = quantity?.toString() ?? "";
-    validityCheck(quantityString, "quantity");
-    const quantityInt = parseInt(quantityString);
     await prisma.book.create({
       data: {
         email: emailString,
@@ -110,33 +99,34 @@ export async function fetchById(id: string) {
   }
 }
 
-export async function updateBookById(formData: FormData, id: string) {
+export async function thisIsbnAlreadyExists(
+  isbnString: string,
+  emailString: string,
+  id: string
+) {
+  const bookExists = await prisma.book.findFirst({
+    where: {
+      isbn: isbnString,
+      email: emailString,
+      id: {
+        not: id,
+      },
+    },
+  });
+  if (bookExists) return true;
+  else return false;
+}
+
+export async function updateBookById(
+  nameString: string,
+  authorString: string,
+  genreString: string,
+  isbnString: string,
+  quantityInt: number,
+  id: string
+) {
   try {
     await connect();
-    const { email, name, author, genre, isbn, quantity } =
-      Object.fromEntries(formData);
-    const nameString = name?.toString() ?? "";
-    validityCheck(nameString, "name");
-    const authorString = author?.toString() ?? "";
-    validityCheck(authorString, "author");
-    const genreString = genre?.toString() ?? "";
-    validityCheck(genreString, "genre");
-    const isbnString = isbn?.toString() ?? "";
-    validityCheck(isbnString, "isbn");
-    const emailString = email?.toString() ?? "";
-    const bookExists = await prisma.book.findFirst({
-      where: {
-        isbn: isbnString,
-        email: emailString,
-        id: {
-          not: id,
-        },
-      },
-    });
-    if (bookExists) throw new Error("Book with this ISBN already exists!");
-    const quantityString = quantity?.toString() ?? "";
-    validityCheck(quantityString, "quantity");
-    const quantityInt = parseInt(quantityString);
     await prisma.book.update({
       data: {
         name: nameString,

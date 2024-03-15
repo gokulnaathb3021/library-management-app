@@ -122,14 +122,6 @@ const Books: React.FC<BooksProps> = ({ searchParams }) => {
       </div>
       <div className={styles.booksTsx}>
         <div className={styles.booksTsxContent}>
-          {/* <button className={styles.addBookButton}>
-            <Link
-              href="/AddBook"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              CLICK TO ADD A NEW BOOK
-            </Link>
-          </button> */}
           <Link
             href="/AddBook"
             style={{ textDecoration: "none", color: "white", width: "100%" }}

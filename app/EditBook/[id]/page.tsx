@@ -1,5 +1,10 @@
 "use client";
-import { deleteBook, fetchById, updateBookById } from "@/lib/actions";
+import {
+  deleteBook,
+  fetchById,
+  thisIsbnAlreadyExists,
+  updateBookById,
+} from "@/lib/actions";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -43,9 +48,91 @@ const EditBook: React.FC = () => {
   }, []);
 
   const router = useRouter();
-  const updateBook = (formData: FormData) => {
+
+  function isEmpty(s: string) {
+    if (s.trim() === "") return true;
+  }
+  const updateBook = async (formData: FormData) => {
+    const { email, name, author, genre, isbn, quantity } =
+      Object.fromEntries(formData);
+
+    const isbnString = isbn?.toString() ?? "";
+    if (isEmpty(isbnString)) {
+      toast.error("isbn number is empty, it can't be so!", {
+        id: "7",
+        duration: 3000,
+      });
+      return;
+    } else if (isbnString.length !== 13) {
+      toast.error("isbn number should be exactly 13 digits long!", {
+        id: "8",
+        duration: 3000,
+      });
+      return;
+    }
+    const emailString = email?.toString() ?? "";
+    if (isEmpty(emailString)) {
+      toast.error("email is empty, it can't be so!", {
+        id: "9",
+        duration: 3000,
+      });
+      return;
+    }
+
+    const exist = await thisIsbnAlreadyExists(
+      isbnString,
+      emailString,
+      book?.id as string
+    );
+    if (exist) {
+      toast.error("Book with this ISBN already exists in your library!", {
+        id: "10",
+      });
+      return;
+    }
+
+    const nameString = name?.toString() ?? "";
+    if (isEmpty(nameString)) {
+      toast.error("book's name is empty, it can't be so!", {
+        id: "4",
+        duration: 3000,
+      });
+      return;
+    }
+    const authorString = author?.toString() ?? "";
+    if (isEmpty(authorString)) {
+      toast.error("author's name is empty, it can't be so!", {
+        id: "5",
+        duration: 3000,
+      });
+      return;
+    }
+    const genreString = genre?.toString() ?? "";
+    if (isEmpty(genreString)) {
+      toast.error("genre is empty, it can't be so!", {
+        id: "6",
+        duration: 3000,
+      });
+      return;
+    }
+
+    const quantityString = quantity?.toString() ?? "";
+    if (isEmpty(quantityString)) {
+      toast.error("please specify the number of books", { id: "11" });
+      return;
+    }
+
+    const quantityInt = parseInt(quantityString);
+
     toast.loading("Updating book🚀", { id: "2" });
-    updateBookById(formData, book?.id as string)
+    updateBookById(
+      nameString,
+      authorString,
+      genreString,
+      isbnString,
+      quantityInt,
+      book?.id as string
+    )
       .then(() => {
         setTimeout(() => {
           toast.success("Book updated🚀", { id: "2" });
@@ -85,13 +172,13 @@ const EditBook: React.FC = () => {
               type="hidden"
               value={user?.email as string}
               name="email"
+              required
             ></input>
             <input
               type="text"
               placeholder="Book's name"
               name="name"
               defaultValue={book?.name || ""}
-              required
             ></input>
           </div>
           <div className={styles.editFormRow}>
@@ -100,14 +187,12 @@ const EditBook: React.FC = () => {
               placeholder="Author's name"
               name="author"
               defaultValue={book?.author || ""}
-              required
             ></input>
             <input
               type="text"
               placeholder="Genre"
               name="genre"
               defaultValue={book?.genre || ""}
-              required
             ></input>
           </div>
           <div className={styles.editFormRow}>
@@ -116,7 +201,6 @@ const EditBook: React.FC = () => {
               placeholder="13 digit ISBN Number"
               name="isbn"
               defaultValue={book?.isbn || ""}
-              required
             ></input>
             <input
               type="number"
@@ -124,7 +208,6 @@ const EditBook: React.FC = () => {
               name="quantity"
               min={0}
               defaultValue={book?.quantity || ""}
-              required
             ></input>
           </div>
           <div className={styles.buttons}>

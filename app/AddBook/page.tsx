@@ -3,7 +3,7 @@
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
-import { addBook } from "@/lib/actions";
+import { addBook, thisAlreadyExists } from "@/lib/actions";
 import toast from "react-hot-toast";
 import Header from "../components/Header";
 import styles from "./AddBook.module.css";
@@ -16,9 +16,73 @@ const AddBook: React.FC = () => {
     if (!user) router.push("/");
   }, [user]);
 
-  function add(formData: FormData) {
+  function isEmpty(s: string) {
+    if (s.trim() === "") return true;
+  }
+
+  async function add(formData: FormData) {
+    const { email, name, author, genre, isbn, quantity } =
+      Object.fromEntries(formData);
+    var isbnString = isbn?.toString() ?? "";
+    if (isEmpty(isbnString)) {
+      toast.error("isbn number is empty, it can't be so!", {
+        id: "1",
+        duration: 3000,
+      });
+      return;
+    } else if (isbnString.length !== 13) {
+      toast.error("isbn number should be exactly 13 digits long!", {
+        id: "2",
+        duration: 3000,
+      });
+      return;
+    }
+    const emailString = email.toString() ?? "";
+    if (isEmpty(emailString)) {
+      toast.error("email is empty, it can't be so!", { id: "4" });
+      return;
+    }
+    const exist = await thisAlreadyExists(isbnString, emailString);
+    if (exist) {
+      toast.error(
+        "isbn number not unique: Book with this isbn number already exists in your library!",
+        { id: "3", duration: 3000 }
+      );
+      return;
+    }
+    const nameString = name.toString() ?? "";
+    if (isEmpty(nameString)) {
+      toast.error("book's name is empty, it can't be so!", { id: "5" });
+      return;
+    }
+    const authorString = author.toString() ?? "";
+    if (isEmpty(authorString)) {
+      toast.error("author's name is empty, it can't be so!", { id: "6" });
+      return;
+    }
+    const quantityString = quantity.toString() ?? "";
+    if (isEmpty(quantityString)) {
+      toast.error("please specify the number of books you want to add!", {
+        id: "7",
+      });
+      return;
+    }
+    const quantityInt = parseInt(quantityString);
+    const genreString = genre.toString() ?? "";
+    if (isEmpty(genreString)) {
+      toast.error("genre is empty, it can't be so!", { id: "8" });
+      return;
+    }
+
     toast.loading("Adding book🚀", { id: "0" });
-    addBook(formData)
+    addBook(
+      emailString,
+      nameString,
+      authorString,
+      genreString,
+      isbnString,
+      quantityInt
+    )
       .then(() => {
         setTimeout(() => {
           toast.success("Book added🚀", { id: "0" });
@@ -49,7 +113,6 @@ const AddBook: React.FC = () => {
               type="text"
               placeholder="Book's name"
               name="name"
-              required
               className={styles.nameInput}
             ></input>
           </div>
@@ -58,28 +121,20 @@ const AddBook: React.FC = () => {
               type="text"
               placeholder="Author's name"
               name="author"
-              required
             ></input>
-            <input
-              type="text"
-              placeholder="Genre"
-              name="genre"
-              required
-            ></input>
+            <input type="text" placeholder="Genre" name="genre"></input>
           </div>
           <div className={styles.addFormRow}>
             <input
               type="text"
               placeholder="13 digit ISBN Number"
               name="isbn"
-              required
             ></input>
             <input
               type="number"
               placeholder="Quantity"
               name="quantity"
               min={1}
-              required
             ></input>
           </div>
           <div className={styles.buttons}>
