@@ -27,17 +27,46 @@ type BooksProps = {
   searchParams: string;
 };
 
+type quote = {
+  quote: string;
+  author: string;
+};
+
 const Books: React.FC<BooksProps> = ({ searchParams }) => {
   const router = useRouter();
   const user = useContext(AuthContext);
   const [books, setBooks] = useState<BookData[]>([]);
   const [count, setCount] = useState<number>(0);
   const [countWithoutq, setCounWithoutq] = useState<number>(0);
+  const [quote, setQuote] = useState<quote | null>(null);
   // const q = searchParams?.q || "";
   const q = (searchParams as { q?: string; page?: string })?.q || "";
   const page =
     parseInt((searchParams as { q?: string; page?: string })?.page as string) ||
     1;
+
+  const fetchQuote = () => {
+    fetch("https://api.api-ninjas.com/v1/quotes?category=education", {
+      method: "GET",
+      headers: { "X-Api-Key": `${process.env.NEXT_PUBLIC_QUOTES_API_KEY}` },
+    })
+      .then((data) => {
+        data
+          .json()
+          .then((content) => {
+            setQuote({
+              quote: content[0].quote,
+              author: content[0].author,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const fetchBooks = () => {
     toast.loading("Fetching books🚀", { id: "0" });
@@ -78,9 +107,19 @@ const Books: React.FC<BooksProps> = ({ searchParams }) => {
     }
   }, [user, q, page]);
 
+  useEffect(() => {
+    fetchQuote();
+  }, []);
+
   return (
     <div className={styles.books}>
       <Header />
+      <div className={styles.quote}>
+        <div className={styles.quoteBox}>
+          <p>"{quote?.quote}"</p>
+          <p>-{quote?.author}</p>
+        </div>
+      </div>
       <div className={styles.booksTsx}>
         <div className={styles.booksTsxContent}>
           <button className={styles.addBookButton}>
@@ -88,7 +127,7 @@ const Books: React.FC<BooksProps> = ({ searchParams }) => {
               href="/AddBook"
               style={{ textDecoration: "none", color: "white" }}
             >
-              CLICK TO ADD NEW BOOK
+              CLICK TO ADD A NEW BOOK
             </Link>
           </button>
           <SearchBooks countWithoutq={countWithoutq} />

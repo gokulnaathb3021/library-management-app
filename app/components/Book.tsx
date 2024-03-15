@@ -44,10 +44,10 @@ const Book: React.FC<props> = ({ book }) => {
       className={styles.aBook}
     >
       <div className={styles.bookRow}>
-        <h1>
+        <h2>
           <GiBlackBook />
           {book.name}
-        </h1>
+        </h2>
         <Link href={`/EditBook/${book.id}`}>
           <button className={styles.edit}>Edit</button>
         </Link>
