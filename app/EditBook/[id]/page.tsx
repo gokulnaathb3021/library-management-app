@@ -60,13 +60,13 @@ const EditBook: React.FC = () => {
     if (isEmpty(isbnString)) {
       toast.error("isbn number is empty, it can't be so!", {
         id: "7",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     } else if (isbnString.length !== 13) {
       toast.error("isbn number should be exactly 13 digits long!", {
         id: "8",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     }
@@ -74,7 +74,7 @@ const EditBook: React.FC = () => {
     if (isEmpty(emailString)) {
       toast.error("email is empty, it can't be so!", {
         id: "9",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     }
@@ -87,6 +87,7 @@ const EditBook: React.FC = () => {
     if (exist) {
       toast.error("Book with this ISBN already exists in your library!", {
         id: "10",
+        duration: 5000,
       });
       return;
     }
@@ -95,7 +96,7 @@ const EditBook: React.FC = () => {
     if (isEmpty(nameString)) {
       toast.error("book's name is empty, it can't be so!", {
         id: "4",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     }
@@ -103,7 +104,7 @@ const EditBook: React.FC = () => {
     if (isEmpty(authorString)) {
       toast.error("author's name is empty, it can't be so!", {
         id: "5",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     }
@@ -111,14 +112,17 @@ const EditBook: React.FC = () => {
     if (isEmpty(genreString)) {
       toast.error("genre is empty, it can't be so!", {
         id: "6",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     }
 
     const quantityString = quantity?.toString() ?? "";
     if (isEmpty(quantityString)) {
-      toast.error("please specify the number of books", { id: "11" });
+      toast.error("please specify the number of books", {
+        id: "11",
+        duration: 5000,
+      });
       return;
     }
 

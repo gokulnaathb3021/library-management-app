@@ -27,13 +27,13 @@ const AddBook: React.FC = () => {
     if (isEmpty(isbnString)) {
       toast.error("isbn number is empty, it can't be so!", {
         id: "1",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     } else if (isbnString.length !== 13) {
       toast.error("isbn number should be exactly 13 digits long!", {
         id: "2",
-        duration: 3000,
+        duration: 5000,
       });
       return;
     }
@@ -46,31 +46,41 @@ const AddBook: React.FC = () => {
     if (exist) {
       toast.error(
         "isbn number not unique: Book with this isbn number already exists in your library!",
-        { id: "3", duration: 3000 }
+        { id: "3", duration: 5000 }
       );
       return;
     }
     const nameString = name.toString() ?? "";
     if (isEmpty(nameString)) {
-      toast.error("book's name is empty, it can't be so!", { id: "5" });
+      toast.error("book's name is empty, it can't be so!", {
+        id: "5",
+        duration: 5000,
+      });
       return;
     }
     const authorString = author.toString() ?? "";
     if (isEmpty(authorString)) {
-      toast.error("author's name is empty, it can't be so!", { id: "6" });
+      toast.error("author's name is empty, it can't be so!", {
+        id: "6",
+        duration: 5000,
+      });
       return;
     }
     const quantityString = quantity.toString() ?? "";
     if (isEmpty(quantityString)) {
       toast.error("please specify the number of books you want to add!", {
         id: "7",
+        duration: 5000,
       });
       return;
     }
     const quantityInt = parseInt(quantityString);
     const genreString = genre.toString() ?? "";
     if (isEmpty(genreString)) {
-      toast.error("genre is empty, it can't be so!", { id: "8" });
+      toast.error("genre is empty, it can't be so!", {
+        id: "8",
+        duration: 5000,
+      });
       return;
     }
 
