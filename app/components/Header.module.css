@@ -23,3 +23,14 @@
   color: white;
   border: none;
 }
+
+@media screen and (max-width: 510px) and (max-height: 500px) {
+  .header h2 {
+    font-size: 17px;
+  }
+
+  .header button {
+    padding: 2px 8px;
+    font-size: 15.5px;
+  }
+}
