@@ -5,8 +5,8 @@
   background-color: white;
   border-radius: 5px;
   margin-bottom: 5px;
-  width: 600px;
-  padding: 10px;
+  width: 450px;
+  padding: 5px;
   padding-bottom: 0;
 }
 
@@ -19,7 +19,7 @@
 .edit {
   cursor: pointer;
   padding: 5px 40px;
-  font-size: large;
+  font-size: small;
   background-color: transparent;
   border: none;
   border: 1px solid rgb(26, 142, 209);
@@ -38,21 +38,21 @@
 }
 
 .aBook .bookRow:nth-child(2) p:nth-child(1) {
-  font-size: large;
+  font-size: 15px;
   font-weight: 400;
   font-style: italic;
-  margin-top: 15px;
+  margin-top: 12px;
   margin-bottom: 0;
 }
 
 .aBook .bookRow:nth-child(2) p:nth-child(2) {
-  font-size: large;
-  margin-top: 15px;
+  font-size: 15px;
+  margin-top: 12px;
   margin-bottom: 0;
 }
 
 .aBook .bookRow:nth-child(3) p:nth-child(1) {
-  font-size: large;
+  font-size: small;
   /* background-color: rgb(26, 142, 209); */
   background-image: linear-gradient(
     to right,
@@ -71,7 +71,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: large;
+  font-size: small;
 }
 
 .quantity button {
@@ -81,7 +81,7 @@
   border: 1px solid rgb(26, 142, 209);
   color: rgb(26, 142, 209);
   border-radius: 5px;
-  font-size: large;
+  font-size: small;
   padding: 1px 10px;
   cursor: pointer;
 }

@@ -9,8 +9,8 @@
 .header button {
   cursor: pointer;
   height: fit-content;
-  padding: 10px 40px;
-  font-size: larger;
+  padding: 5px 20px;
+  font-size: large;
   background-color: transparent;
   border: none;
   border: 1px solid orange;

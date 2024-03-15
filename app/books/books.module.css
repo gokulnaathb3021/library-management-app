@@ -18,7 +18,7 @@
 .addBookButton {
   cursor: pointer;
   width: 100%;
-  padding: 10px 20px;
+  padding: 7px 12px;
   font-size: small;
   background: transparent;
   background-color: rgb(26, 142, 209);
@@ -36,7 +36,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
@@ -58,15 +58,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
   border-radius: 5px;
 }
 
 .quoteBox p:nth-child(1) {
-  font-size: large;
+  font-size: 15px;
   margin-bottom: 5px;
 }
 
 .quoteBox p:nth-child(2) {
   font-style: italic;
+  font-size: 12px;
 }

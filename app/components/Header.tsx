@@ -4,7 +4,7 @@ import styles from "./Header.module.css";
 const Header: React.FC = () => {
   return (
     <div className={styles.header}>
-      <h1>Your Library</h1>
+      <h2>Your Library</h2>
       <Signout />
     </div>
   );
